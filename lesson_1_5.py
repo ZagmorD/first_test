@@ -81,6 +81,17 @@ class dragon_container(animal_transport_container): # переноска для 
     def __init__(self, ne_gorit, l, t, h, g, name_animal):
         super().__init__(l, t, h, g, name_animal)
         self.ne_gorit = ne_gorit
+        
+    def rename_dragon(self):
+        self.name = 'Иннокентий'
+        
+class cat_container(animal_transport_container): # переноска для кота
+    def rename_cat(self):
+        self.name = 'Андрей'    
 
-kletka = dragon_container('Yes', 100, 100, 100, 0, '')
-kletka.zahvat('Drakon') # захватываем дракона Дракон :)
+kletka1 = dragon_container('Yes', 100, 100, 100, 0, '')
+kletka1.zahvat('Андрей') # захватываем дракона Андрей
+kletka1.rename_dragon() # и переименовываем его в Иннокентия
+kletkaI = cat_container(100, 100, 100, 0, '')
+kletkaI.zahvat('Иннокентий') # захватываем кота Иннокентия
+kletkaI.rename_cat() # и переименовываем его в Андрея
