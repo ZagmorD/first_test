@@ -18,25 +18,50 @@ B7A.__Attack__()
 # Задание 5.2
 # Первая пара классов с наследованием
 class aviation:
-    def __init__(self,air_numb_plan, air_atack_gr, air_speed, air_weapon, air_det_dis):
+    def __init__(self,air_numb_plan, air_atack_gr, air_speed, air_weapon, air_height):
         self.num_plan = air_numb_plan # общее количество самолётов
         self.atack_gr = air_atack_gr # количество атакующих групп
         self.speed = air_speed # скорость самолёта
         self.weapon = air_weapon # количество вооружения на одном самолёте
-        self.det_dis = air_det_dis # дальность обнаружения самолётов
+        self.height = air_height # высота полёта
 
-    def Attack(self):
+    def prepare_Attack(self):
         self.atack_gr -= 1 # от общего количества отделяется 1 ударная группа
-        self.weapon = 0 # сбрасываются торпеды с отделившихся самолётов
+
+    def weapon_launch(self):
+        self.weapon = 0 # отделяется вооружение с ударной группы самолётов
+
 
 class torp_air(aviation):
 
     def __init__(self, torpedos, air_numb_plan,air_atack_gr, air_speed, air_weapon, air_det_dis):
         super().__init__(air_numb_plan,air_atack_gr, air_speed, air_weapon, air_det_dis)
         self.type_weapon = torpedos
+    
+    def torpedos_attack(self):
+        self.speed = 60
+        self.height = 10
+
+class bomb_air(aviation):
+    
+    def __init__(self, bombs, air_numb_plan,air_atack_gr, air_speed, air_weapon, air_det_dis):
+        super().__init__(air_numb_plan,air_atack_gr, air_speed, air_weapon, air_det_dis)
+        self.type_weapon = bombs
+    
+    def bombers_attack(self):
+        self.speed = 400
+        self.height = 500
+
         
-B7A = torp_air('Торпеды', 4, 2, 137, 2, 7)
-B7A.Attack()
+B7A = torp_air('Торпеды', 4, 2, 137, 2, 200)
+B7A.prepare_Attack() # группа отделяется для удара
+B7A.torpedos_attack() # выполняет заход
+B7A.weapon_launch() # и сбрасывает торпеды
+
+B7A = bomb_air('Бомбы', 12, 4, 170, 4, 200)
+B7A.prepare_Attack() # группа отделяется для удара
+B7A.bombers_attack() # выполняет заход
+B7A.weapon_launch() # и сбрасывает бомбы
 
 # Вторая пара классов с наследованием
 class animal_transport_container: # просто переноска
